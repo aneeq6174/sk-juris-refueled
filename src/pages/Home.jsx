@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import heroTeamImage from '../assets/Hero Team.JPG';
 import heroServicesImage from '../assets/Hero Services.jpg';
-import heroAboutUsImage from '../assets/hero about us.JPG';
+import heroAboutUsImage from '../assets/Hero-about-us.jpg';
 import heroEventsImage from '../assets/Hero events and achievements.jpg';
 import heroContactImage from '../assets/Hero contact us.jpg';
 import heroTestimonialsImage from '../assets/Hero testimonials.png';
@@ -212,10 +212,10 @@ export default function Home() {
               {clientLogos.slice(0, 6).map((logoSrc, index) => (
                 <AnimatedSection key={logoSrc} delay={index * 50}>
                   <div className="h-20 w-full bg-white rounded-xl shadow-sm ring-1 ring-slate-200 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg p-4 group">
-                    <img 
-                      src={logoSrc} 
-                      alt="Client logo" 
-                      className="max-h-12 w-auto object-contain opacity-100 transition-all duration-300" 
+                    <img
+                      src={logoSrc}
+                      alt="Client logo"
+                      className="max-h-12 w-auto object-contain opacity-100 transition-all duration-300"
                     />
                   </div>
                 </AnimatedSection>
@@ -321,10 +321,10 @@ function ServiceCard({ title, description }) {
           </svg>
         )}
       </div>
-      
+
       <h3 className="font-semibold text-lg font-[var(--font-accent)]">{title}</h3>
       <p className="text-slate-600 mt-2">{description}</p>
-      
+
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--navy-dark)]/95 to-[color:var(--teal-accent)]/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400">
         <Button variant="outline" to="/services" className="text-white border-white hover:bg-white hover:text-[color:var(--navy-dark)]">
@@ -352,7 +352,7 @@ function Stat({ value, label }) {
 function HeroSlider() {
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
-  
+
   const slides = useMemo(
     () => [
       {
@@ -426,7 +426,7 @@ function HeroSlider() {
 
   useEffect(() => {
     if (isPaused) return;
-    
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -441,7 +441,7 @@ function HeroSlider() {
   }, [isPaused, slides.length]);
 
   return (
-    <section 
+    <section
       className="relative w-full h-[70vh] sm:h-[80vh] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -451,19 +451,18 @@ function HeroSlider() {
         {slides.map((s, i) => (
           <div
             key={s.label}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              i === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${i === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
           >
             <ImageWithLoader
               absolute={true}
               alt=""
               className="w-full h-full object-cover"
               src={s.image}
-              style={{ 
-                objectPosition: s.imagePosition === 'object-top' ? 'center 30%' : 
-                               s.imagePosition === 'object-bottom' ? 'center 70%' : 
-                               'center 30%'
+              style={{
+                objectPosition: s.imagePosition === 'object-top' ? 'center 30%' :
+                  s.imagePosition === 'object-bottom' ? 'center 70%' :
+                    'center 30%'
               }}
             />
             {/* Enhanced gradient overlay */}
@@ -509,10 +508,9 @@ function HeroSlider() {
                 className="slider-dot relative flex-1 h-1 bg-white/30 rounded-full overflow-hidden group cursor-pointer"
                 style={{ pointerEvents: 'auto', zIndex: 100 }}
               >
-                <div 
-                  className={`absolute inset-y-0 left-0 bg-[color:var(--gold-primary)] transition-all duration-100 ${
-                    i === index ? 'opacity-100' : 'opacity-0'
-                  }`}
+                <div
+                  className={`absolute inset-y-0 left-0 bg-[color:var(--gold-primary)] transition-all duration-100 ${i === index ? 'opacity-100' : 'opacity-0'
+                    }`}
                   style={{ width: i === index ? `${progress}%` : '0%' }}
                 />
                 <div className="absolute inset-0 bg-white/60 group-hover:bg-white/80 transition-colors" />
