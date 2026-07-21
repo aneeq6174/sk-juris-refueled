@@ -4,7 +4,7 @@ import ImageWithLoader from '../components/ImageWithLoader';
 import Button from '../components/Button';
 
 // Import hero image
-import heroImage from '../Recognitions/recognitions hero image.JPG';
+import heroImage from '../Recognitions/recognitions hero image.jpg';
 
 // Dynamically import all achievement images from the achievements folder
 // File name (without extension) becomes the achievement title
