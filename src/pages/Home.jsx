@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import heroTeamImage from '../assets/Hero Team.JPG';
-import heroServicesImage from '../assets/Hero Services.jpg';
+import heroTeamImage from '../assets/Hero-Team.JPG';
+import heroServicesImage from '../assets/Hero-Services.jpg';
 import heroAboutUsImage from '../assets/Hero-about-us.jpg';
-import heroEventsImage from '../assets/Hero events and achievements.jpg';
-import heroContactImage from '../assets/Hero contact us.jpg';
-import heroTestimonialsImage from '../assets/Hero testimonials.png';
-import officeImage from '../assets/home office 1.jpg';
+import heroEventsImage from '../assets/Hero-events-and-achievements.jpg';
+import heroContactImage from '../assets/Hero-contact-us.jpg';
+import heroTestimonialsImage from '../assets/Hero-testimonials.png';
+import officeImage from '../assets/home-office-1.jpg';
 
 // Import animation components
 import AnimatedSection from '../components/AnimatedSection';
