@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AnimatedSection from '../components/AnimatedSection';
-import Button from '../components/Button';
 
 // Dynamically import all logo images from the logos folder
 const logoModules = import.meta.glob('../assets/logos/*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true });
-const clientLogos = Object.entries(logoModules).map(([path, mod]) => ({
-  src: typeof mod === 'string' ? mod : mod.default,
-  name: path.split('/').pop().replace(/\.(png|jpg|jpeg|PNG|JPG|JPEG)$/, ''),
-}));
+// Helper to normalize and title-case display names
+function formatName(raw) {
+  if (!raw || typeof raw !== 'string') return raw;
+  let s = raw.replace(/[_\-]+/g, ' ').replace(/\s+/g, ' ').trim();
+  // remove trailing commas/periods
+  s = s.replace(/[.,]+$/g, '');
+  // Split words and title-case each
+  return s
+    .split(' ')
+    .map((w) => {
+      // preserve parentheses and inner punctuation
+      return w
+        .split(/(\(|\)|\/)/)
+        .map((part) => (/[A-Za-z]/.test(part) ? part.charAt(0).toUpperCase() + part.slice(1).toLowerCase() : part))
+        .join('');
+    })
+    .join(' ');
+}
+
+const clientLogos = Object.entries(logoModules).map(([path, mod]) => {
+  const rawName = path.split('/').pop().replace(/\.(png|jpg|jpeg|PNG|JPG|JPEG)$/, '');
+  return {
+    src: typeof mod === 'string' ? mod : mod.default,
+    name: formatName(rawName),
+  };
+});
 
 // Client names without logos - displayed as a text list below
 const clientNamesOnly = [
@@ -122,15 +143,8 @@ const clientNamesOnly = [
   'HKG Construction (Pvt) Ltd.',
 ];
 
-const LOGOS_PER_PAGE = 12;
-const CLIENTS_PER_PAGE = 10;
-
 export default function Clients() {
-  const [logosVisible, setLogosVisible] = useState(LOGOS_PER_PAGE);
-  const [clientsVisible, setClientsVisible] = useState(CLIENTS_PER_PAGE);
-
-  const hasMoreLogos = logosVisible < clientLogos.length;
-  const hasMoreClients = clientsVisible < clientNamesOnly.length;
+  const formattedClientNames = clientNamesOnly.map(formatName);
 
   return (
     <>
@@ -150,40 +164,26 @@ export default function Clients() {
             <AnimatedSection>
               <header className="mb-8">
                 <p className="text-sm uppercase tracking-widest text-[color:var(--gold-primary)] font-[var(--font-accent)]">Our Partners</p>
-                <h2 className="h2 mt-2">Clients with Logos</h2>
+                  <h2 className="h2 mt-2">Client Logos</h2>
                 <p className="lead mt-2">Recognized organizations we are proud to have served.</p>
               </header>
             </AnimatedSection>
-
-            <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 items-stretch">
-              {clientLogos.slice(0, logosVisible).map((logo, index) => (
-                <AnimatedSection key={logo.name} delay={(index % 6) * 60}>
-                  <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm ring-1 ring-slate-200 p-4 h-full min-h-[110px] transition-all duration-300 hover:scale-105 hover:shadow-md hover:ring-[color:var(--gold-primary)] group">
-                    <img
-                      src={logo.src}
-                      alt={logo.name}
-                      className="max-h-14 w-auto object-contain transition-all duration-300"
-                    />
-                    <p className="mt-2 text-[10px] text-center text-slate-500 leading-tight font-[var(--font-accent)] line-clamp-2">
-                      {logo.name}
-                    </p>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
-
-            {hasMoreLogos && (
-              <AnimatedSection delay={200}>
-                <div className="mt-10 text-center">
-                  <Button
-                    onClick={() => setLogosVisible((prev) => Math.min(prev + LOGOS_PER_PAGE, clientLogos.length))}
-                    variant="primary"
-                  >
-                    Load More
-                  </Button>
-                </div>
-              </AnimatedSection>
-            )}
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-stretch">
+                {clientLogos.map((logo, index) => (
+                  <AnimatedSection key={logo.name || index} delay={(index % 8) * 60}>
+                    <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm ring-1 ring-slate-200 p-6 h-full min-h-[140px] transition-all duration-300 hover:scale-105 hover:shadow-md hover:ring-[color:var(--gold-primary)] group">
+                      <img
+                        src={logo.src}
+                        alt={logo.name}
+                        className="max-h-20 w-auto object-contain transition-all duration-300"
+                      />
+                      <p className="mt-3 text-sm text-center text-slate-500 leading-tight font-[var(--font-accent)] line-clamp-2">
+                        {logo.name}
+                      </p>
+                    </div>
+                  </AnimatedSection>
+                ))}
+              </div>
           </div>
         </section>
       )}
@@ -200,7 +200,7 @@ export default function Clients() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {clientNamesOnly.slice(0, clientsVisible).map((client, i) => (
+            {formattedClientNames.map((client, i) => (
               <AnimatedSection key={i} delay={(i % 3) * 80}>
                 <div className="card p-5 flex items-start gap-3 hover:shadow-lg transition-shadow duration-300 group">
                   <span className="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-[color:var(--gold-primary)] group-hover:scale-150 transition-transform duration-300" />
@@ -209,19 +209,6 @@ export default function Clients() {
               </AnimatedSection>
             ))}
           </div>
-
-          {hasMoreClients && (
-            <AnimatedSection delay={300}>
-              <div className="mt-10 text-center">
-                <Button
-                  onClick={() => setClientsVisible((prev) => Math.min(prev + CLIENTS_PER_PAGE, clientNamesOnly.length))}
-                  variant="outline"
-                >
-                  Load More Clients
-                </Button>
-              </div>
-            </AnimatedSection>
-          )}
         </div>
       </section>
     </>
