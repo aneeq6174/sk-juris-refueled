@@ -5,12 +5,9 @@ import Button from './Button';
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About Us' },
-  { to: '/recognitions', label: 'Recognitions' },
-  { to: '/team', label: 'Team' },
-  { to: '/services', label: 'Services' },
+  { to: '/expertise', label: 'Expertise' },
   { to: '/clients', label: 'Clients' },
-  { to: '/testimonials', label: 'Testimonials' },
+  { to: '/about', label: 'About Us' },
   { to: '/contact', label: 'Contact Us' },
 ];
 
@@ -40,8 +37,8 @@ export default function Footer() {
             <Button variant="primary" to="/contact">
               Schedule Consultation
             </Button>
-            <Button variant="outline" to="/services" className="text-white border-white hover:bg-white hover:text-[color:var(--navy-dark)]">
-              View Services
+            <Button variant="outline" to="/expertise" className="text-white border-white hover:bg-white hover:text-[color:var(--navy-dark)]">
+              Explore Expertise
             </Button>
           </div>
         </div>
@@ -102,5 +99,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

@@ -60,7 +60,7 @@ export default function Services() {
   return (
     <section className="container-x section">
       <AnimatedSection>
-        <h1 className="h1 font-[var(--font-heading)]">Services</h1>
+        <h1 className="h1 font-[var(--font-heading)]">Expertise</h1>
         <p className="lead mt-3">A comprehensive suite of legal services for international clients.</p>
       </AnimatedSection>
 

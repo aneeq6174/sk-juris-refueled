@@ -2,24 +2,34 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Scroll to top on every route change - works with Lenis
-    if (typeof window !== 'undefined') {
-      // Use Lenis if available, otherwise fallback to native smooth scroll
-      if (window.lenis) {
-        window.lenis.scrollTo(0, { immediate: false });
-      } else {
-        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    if (typeof window === 'undefined') return;
+
+    if (hash) {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (target) {
+        const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 80;
+        if (window.lenis) {
+          window.lenis.scrollTo(target, { offset: -headerHeight });
+        } else {
+          const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+          window.scrollTo({ top, left: 0, behavior: 'smooth' });
+        }
+        return;
       }
     }
-  }, [pathname]);
+
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: false });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  }, [pathname, hash]);
 
   return null;
 }
-
-
 
 
 

@@ -262,6 +262,18 @@ p, li {
 }
 
 /* Smooth transitions for interactive elements (NOT scroll animations) */
+.home-hero {
+  height: calc(100vh - 5rem);
+  height: calc(100svh - 5rem);
+}
+
+@media (min-width: 640px) {
+  .home-hero {
+    height: calc(100vh - 6rem);
+    height: calc(100svh - 6rem);
+  }
+}
+
 .featured-testimonial-card,
 .service-card,
 .team-member,

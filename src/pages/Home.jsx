@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import heroTeamImage from '../assets/Hero-Team.JPG';
 import heroServicesImage from '../assets/Hero-Services.jpg';
 import heroAboutUsImage from '../assets/Hero-about-us.jpg';
-import heroEventsImage from '../assets/Hero-events-and-achievements.jpg';
 import heroContactImage from '../assets/Hero-contact-us.jpg';
-import heroTestimonialsImage from '../assets/Hero-testimonials.png';
+import heroClientsImage from '../assets/hero-clients.jpeg';
 import officeImage from '../assets/home-office-1.jpg';
 
 // Import animation components
@@ -13,19 +11,6 @@ import AnimatedSection from '../components/AnimatedSection';
 import AnimatedCountUp from '../components/CountUp';
 import ImageWithLoader from '../components/ImageWithLoader';
 import Button from '../components/Button';
-
-// Import team member images
-import founderImage from '../team/00 - Sheikh Khurram Shehzad - (Founder) Advocate high court.JPG';
-import member1Image from '../team/03 - Muhammad Younas - Advocate High Court.jpg';
-import member2Image from '../team/01 - Waqas Mahmood Kasuri - Advocate.jpg';
-import member3Image from '../team/05 - Amir Rasheed Bhatti - Advocate High Court.jpeg';
-
-// Dynamically import achievement images for the recognitions section preview
-const awardModules = import.meta.glob('../Recognitions/achievements/*.{jpg,jpeg,JPG,JPEG,png,PNG}', { eager: true });
-const awardImages = Object.entries(awardModules).map(([path, mod]) => ({
-  image: typeof mod === 'string' ? mod : mod.default,
-  title: path.split('/').pop().replace(/\.(jpg|jpeg|JPG|JPEG|png|PNG)$/, ''),
-})).slice(0, 3); // Show first 3 achievements on home page
 
 const logoModules = import.meta.glob('../assets/logos/*.{png,jpg,jpeg}', { eager: true });
 const clientLogos = Object.values(logoModules).map((mod) => (typeof mod === 'string' ? mod : mod.default));
@@ -97,99 +82,8 @@ export default function Home() {
             {/* Single View All Services button below all cards */}
             <AnimatedSection delay={400}>
               <div className="mt-10 text-center">
-                <Button to="/services" variant="primary">
+                <Button to="/expertise" variant="primary">
                   View All Services
-                </Button>
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Team Section - Founder displayed first, then members in ascending order */}
-      <AnimatedSection>
-        <section className="section">
-          <div className="container-x">
-            <AnimatedSection>
-              <header className="mb-10 text-center">
-                <h2 className="h2">Expert Team</h2>
-                <p className="lead mt-2">Meet the professionals dedicated to your success.</p>
-              </header>
-            </AnimatedSection>
-
-            {/* Team member cards with hover effects - image scales up, background transitions */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { image: founderImage, name: 'Sheikh Khurram Shehzad', role: 'Advocate High Court - Founder', position: 'center 25%' },
-                { image: member1Image, name: 'Muhammad Younas', role: 'Advocate High Court', position: 'center 25%' },
-                { image: member2Image, name: 'Atif Raja', role: 'Advocate High Court', position: 'center 25%' },
-                { image: member3Image, name: 'Amir Rasheed Bhatti', role: 'Advocate High Court', position: 'center 25%' },
-              ].map((member, i) => (
-                <AnimatedSection key={member.name} delay={`delay-${(i + 1) * 100}`}>
-                  <div className="card overflow-hidden group transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_8px_16px_rgba(0,0,0,0.2)]">
-                    <div className="overflow-hidden">
-                      <ImageWithLoader
-                        alt={member.name}
-                        className="h-48 w-full object-cover team-member-image"
-                        src={member.image}
-                        style={{ objectPosition: member.position || 'center 25%' }}
-                      />
-                    </div>
-                    <div className="p-4 transition-colors duration-300 group-hover:bg-[color:var(--base)]">
-                      <h4 className="font-semibold">{member.name}</h4>
-                      <p className="text-sm text-slate-600">{member.role}</p>
-                    </div>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
-
-            <AnimatedSection delay={500}>
-              <div className="mt-8 text-center">
-                <Button to="/team" variant="outline">
-                  Meet Full Team
-                </Button>
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Recognitions Section - Using actual image filenames as titles */}
-      <AnimatedSection>
-        <section className="section bg-[color:var(--surface)]">
-          <div className="container-x">
-            <AnimatedSection>
-              <header className="mb-8 text-center">
-                <h2 className="h2">Recognitions</h2>
-                <p className="lead mt-2">Recognition of our commitment to legal excellence.</p>
-              </header>
-            </AnimatedSection>
-
-            {/* Award cards with hover effects - images from src/Recognitions/Awards/ folder */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {awardImages.map((item, idx) => (
-                <AnimatedSection key={item.title} delay={`delay-${(idx + 1) * 100}`}>
-                  <article className="card overflow-hidden group transition-all duration-300 hover:shadow-lg">
-                    <div className="overflow-hidden">
-                      <ImageWithLoader
-                        alt={item.title}
-                        className="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        src={item.image}
-                      />
-                    </div>
-                    <div className="p-5 transition-colors duration-300 group-hover:bg-[color:var(--base)]">
-                      <h3 className="font-semibold">{item.title}</h3>
-                    </div>
-                  </article>
-                </AnimatedSection>
-              ))}
-            </div>
-
-            <AnimatedSection delay={500}>
-              <div className="mt-8 text-center">
-                <Button to="/recognitions" variant="primary">
-                  View All Recognitions
                 </Button>
               </div>
             </AnimatedSection>
@@ -272,13 +166,6 @@ export default function Home() {
               ))}
             </div>
 
-            <AnimatedSection delay={400}>
-              <div className="mt-8 text-center">
-                <Button to="/testimonials" variant="outline">
-                  Read all →
-                </Button>
-              </div>
-            </AnimatedSection>
           </div>
         </section>
       </AnimatedSection>
@@ -327,7 +214,7 @@ function ServiceCard({ title, description }) {
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--navy-dark)]/95 to-[color:var(--teal-accent)]/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-        <Button variant="outline" to="/services" className="text-white border-white hover:bg-white hover:text-[color:var(--navy-dark)]">
+        <Button variant="outline" to="/expertise" className="text-white border-white hover:bg-white hover:text-[color:var(--navy-dark)]">
           Learn More
         </Button>
       </div>
@@ -367,29 +254,12 @@ function HeroSlider() {
         cta: 'Who We Are',
       },
       {
-        label: 'Services',
-        path: '/services',
+        label: 'Expertise',
+        path: '/expertise',
         image: heroServicesImage,
-        imagePosition: 'object-center', // Change this to adjust positioning
-        heading: 'Services',
-        cta: 'Explore Services',
-      },
-      {
-        label: 'Team',
-        path: '/team',
-        image: heroTeamImage,
-        imagePosition: 'object-top',
-        heading: 'Meet the Team',
-        cta: 'View Team',
-      },
-      {
-        // Recognitions slide - using Hero events and achievements image
-        label: 'Recognitions',
-        path: '/recognitions',
-        image: heroEventsImage,
-        imagePosition: 'object-center', // Changed from 'object-top' to center the image
-        heading: 'Recognitions',
-        cta: 'See Highlights',
+        imagePosition: 'object-center',
+        heading: 'Our Expertise',
+        cta: 'Explore Expertise',
       },
       {
         // Contact Us slide - using Hero contact us image
@@ -403,20 +273,10 @@ function HeroSlider() {
       {
         label: 'Clients',
         path: '/clients',
-        image:
-          'https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=1600&auto=format&fit=crop',
-        imagePosition: 'object-center', // Change this to adjust positioning
+        image: heroClientsImage,
+        imagePosition: 'object-center',
         heading: 'Clients',
         cta: 'View Clients',
-      },
-      {
-        // Testimonials slide - using Hero testimonials image
-        label: 'Testimonials',
-        path: '/testimonials',
-        image: heroTestimonialsImage,
-        imagePosition: 'object-center', // Change this to adjust positioning
-        heading: 'What Clients Say',
-        cta: 'Read Testimonials',
       },
     ],
     []
@@ -442,7 +302,7 @@ function HeroSlider() {
 
   return (
     <section
-      className="relative w-full h-[70vh] sm:h-[80vh] overflow-hidden"
+      className="home-hero relative w-full overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -501,7 +361,6 @@ function HeroSlider() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log(`✅ Slide ${i + 1} clicked - Single click working!`);
                   setIndex(i);
                   setProgress(0);
                 }}
@@ -522,4 +381,3 @@ function HeroSlider() {
     </section>
   );
 }
-
