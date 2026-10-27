@@ -13,7 +13,7 @@ function getImageUrl(imageModules, filename) {
 export const partners = [
   {
     slug: 'sheikh-khurram-shehzad',
-    name: 'Sheikh Khurram Shehzad',
+    name: 'Sheikh Khurram Abbas',
     designation: 'Founder & Advocate High Court',
     filename: 'Sheikh Khurram Shehzad-Founder.JPG',
   },
