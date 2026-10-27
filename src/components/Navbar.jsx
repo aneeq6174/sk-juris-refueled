@@ -7,6 +7,7 @@ const navItems = [
   { to: '/expertise', label: 'Expertise' },
   { to: '/clients', label: 'Clients' },
   { to: '/about', label: 'About Us' },
+  { to: '/contact', label: 'Contact Us' },
 ];
 
 export default function Navbar() {
