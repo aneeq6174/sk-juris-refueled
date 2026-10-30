@@ -1,12 +1,15 @@
-const partnerImages = import.meta.glob('../team/Partners/*.{jpg,jpeg,JPG,JPEG}', {
+const partnerImages = import.meta.glob('../team/Partners/*.{png,jpg,jpeg,PNG,JPG,JPEG}', {
   eager: true,
 });
-const teamImages = import.meta.glob('../team/*.{jpg,jpeg,JPG,JPEG}', {
+const teamImages = import.meta.glob('../team/*.{png,jpg,jpeg,PNG,JPG,JPEG}', {
   eager: true,
 });
 
-function getImageUrl(imageModules, filename) {
-  const entry = Object.entries(imageModules).find(([path]) => path.endsWith(`/${filename}`));
+function getImageUrl(imageModules, fileBasename) {
+  const expectedBasename = fileBasename.replace(/\.[^.]+$/, '');
+  const entry = Object.entries(imageModules).find(([path]) =>
+    path.slice(path.lastIndexOf('/') + 1).replace(/\.[^.]+$/, '') === expectedBasename
+  );
   return entry ? entry[1].default : null;
 }
 
@@ -21,13 +24,13 @@ export const partners = [
     slug: 'syed-taqi-abbas',
     name: 'Syed Taqi Abbas',
     designation: 'Advocate High Court',
-    filename: 'Syed Taqi Abbas-Advocate High Court.JPG',
+    filename: 'Syed Taqi Abbas-Advocate High Court.jpeg',
   },
   {
     slug: 'nisar-safdar-naqvi',
     name: 'Nisar Safdar Naqvi',
     designation: 'Partner',
-    filename: 'Nisar Safdar Naqvi.JPG',
+    filename: 'Nisar Safdar Naqvi.jpeg',
   },
 ].map((partner) => ({
   ...partner,
@@ -36,19 +39,14 @@ export const partners = [
 
 export const teamMembers = [
   {
-    name: 'Waqas Mahmood Kasuri',
-    designation: 'Advocate',
-    filename: '01 - Waqas Mahmood Kasuri - Advocate.jpg',
-  },
-  {
     name: 'Muhammad Younas',
     designation: 'Advocate High Court',
-    filename: '03 - Muhammad Younas - Advocate High Court.jpg',
+    filename: '03 - Muhammad Younas - Advocate High Court.jpeg',
   },
   {
     name: 'Atif Raja',
     designation: 'Advocate High Court',
-    filename: '04 - Atif Raja Advocate - High Court.jpg',
+    filename: '04 - Atif Raja Advocate - High Court.jpeg',
   },
   {
     name: 'Amir Rasheed Bhatti',
@@ -58,17 +56,17 @@ export const teamMembers = [
   {
     name: 'Hussain Nasir',
     designation: 'Advocate',
-    filename: '13 - Hussain Nasir - Advocate.jpg',
+    filename: '13 - Hussain Nasir - Advocate.jpeg',
   },
   {
     name: 'Azib Amin',
     designation: 'Advocate High Court',
-    filename: '14 - Azib Amin - Advocate High Court.jpg',
+    filename: '14 - Azib Amin - Advocate High Court.jpeg',
   },
   {
     name: 'Rana Waheed Ahmad',
     designation: 'Advocate High Court',
-    filename: '15 - Rana Waheed Ahmad - Advocate High Court.jpg',
+    filename: '15 - Rana Waheed Ahmad - Advocate High Court.jpeg',
   },
 ].map((member) => ({
   ...member,

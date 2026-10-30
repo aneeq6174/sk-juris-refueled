@@ -164,7 +164,6 @@ export default function Clients() {
             <AnimatedSection>
               <header className="mb-8">
                 <p className="text-sm uppercase tracking-widest text-[color:var(--gold-primary)] font-[var(--font-accent)]">Our Partners</p>
-                  <h2 className="h2 mt-2">Client Logos</h2>
                 <p className="lead mt-2">Recognized organizations we are proud to have served.</p>
               </header>
             </AnimatedSection>

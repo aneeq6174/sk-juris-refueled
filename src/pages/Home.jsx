@@ -11,8 +11,9 @@ import AnimatedSection from '../components/AnimatedSection';
 import AnimatedCountUp from '../components/CountUp';
 import ImageWithLoader from '../components/ImageWithLoader';
 import Button from '../components/Button';
+import TypewriterHeading from '../components/TypewriterHeading.jsx';
 
-const logoModules = import.meta.glob('../assets/logos/*.{png,jpg,jpeg}', { eager: true });
+const logoModules = import.meta.glob('../assets/logos/*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true });
 const clientLogos = Object.values(logoModules).map((mod) => (typeof mod === 'string' ? mod : mod.default));
 export default function Home() {
   return (
@@ -35,7 +36,10 @@ export default function Home() {
             </AnimatedSection>
             <AnimatedSection delay="delay-200">
               <div>
-                <h2 className="h2">About SK Juris & Co.</h2>
+                <TypewriterHeading
+                  className="h2"
+                  text="About SK Juris & Co. (SKJC)"
+                />
                 <p className="lead mt-3">
                   Founded on principles of excellence and integrity, we have been at the forefront of
                   international legal services for over two decades.
@@ -60,7 +64,7 @@ export default function Home() {
           <div className="container-x">
             <AnimatedSection>
               <header className="mb-10 text-center">
-                <h2 className="h2">Legal Services</h2>
+                <TypewriterHeading className="h2" text="Legal Services" />
                 <p className="lead mt-2">Comprehensive legal solutions tailored to your needs.</p>
               </header>
             </AnimatedSection>
@@ -97,7 +101,7 @@ export default function Home() {
           <div className="container-x">
             <AnimatedSection>
               <header className="mb-10 text-center">
-                <h2 className="h2">Trusted Clients</h2>
+                <TypewriterHeading className="h2" text="Trusted Clients" />
                 <p className="lead mt-2">Organizations that rely on our cross-border legal expertise.</p>
               </header>
             </AnimatedSection>
@@ -127,48 +131,6 @@ export default function Home() {
         </section>
       </AnimatedSection>
 
-      {/* Testimonials Section */}
-      <AnimatedSection>
-        <section className="section">
-          <div className="container-x">
-            <AnimatedSection>
-              <header className="mb-10 text-center">
-                <h2 className="h2">Client Testimonials</h2>
-                <p className="lead mt-2">What our clients say about working with us.</p>
-              </header>
-            </AnimatedSection>
-
-            {/* Testimonial cards with hover effects and placeholder avatars */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                ['Robert Wilson', 'General Counsel, Blue Corp', 'Exceptional legal guidance for international expansion.'],
-                ['Lisa Anderson', 'Senior Counsel, Prime Plc', 'Responsive, knowledgeable, and results-driven.'],
-                ['James Thompson', 'CEO, Global Industries', 'Professional service that exceeded our expectations.'],
-              ].map(([name, title, quote], i) => (
-                <AnimatedSection key={i} delay={(i + 1) * 100}>
-                  <blockquote className="card p-8 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative border-l-4 border-[color:var(--gold-primary)]">
-                    {/* Decorative quote */}
-                    <div className="absolute top-0 left-4 text-[color:var(--gold-primary)] opacity-10 text-9xl font-[var(--font-heading)] leading-none pointer-events-none">
-                      "
-                    </div>
-                    <div className="relative z-10">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[color:var(--gold-primary)] to-[color:var(--gold-light)] mb-4 mx-auto flex items-center justify-center text-[color:var(--navy-dark)] font-bold text-xl">
-                        {name.charAt(0)}
-                      </div>
-                      <p className="text-slate-700 text-center italic">"{quote}"</p>
-                      <footer className="mt-4 text-sm text-slate-500 text-center">
-                        <div className="font-semibold">{name}</div>
-                        <div>{title}</div>
-                      </footer>
-                    </div>
-                  </blockquote>
-                </AnimatedSection>
-              ))}
-            </div>
-
-          </div>
-        </section>
-      </AnimatedSection>
     </>
   );
 }
@@ -243,40 +205,28 @@ function HeroSlider() {
   const slides = useMemo(
     () => [
       {
-        label: 'About Us',
-        path: '/about',
         image: heroAboutUsImage,
-        // IMAGE POSITIONING: Change this to adjust how the image is positioned
-        // Options: 'object-center' (centered), 'object-top' (top), 'object-bottom' (bottom)
-        // Equivalent to CSS background-position
-        imagePosition: 'object-center',
-        heading: 'About the Firm',
-        cta: 'Who We Are',
+        heading: 'Taxation Law',
+        description:
+          'Clear advice on tax planning, compliance and disputes for businesses operating in a changing regulatory landscape.',
       },
       {
-        label: 'Expertise',
-        path: '/expertise',
         image: heroServicesImage,
-        imagePosition: 'object-center',
-        heading: 'Our Expertise',
-        cta: 'Explore Expertise',
+        heading: 'International Law',
+        description:
+          'Practical counsel for cross-border transactions, international trade and the legal challenges of global business.',
       },
       {
-        // Contact Us slide - using Hero contact us image
-        label: 'Contact Us',
-        path: '/contact',
-        image: heroContactImage,
-        imagePosition: 'object-center', // Change this to adjust positioning
-        heading: 'Contact Us',
-        cta: 'Get in Touch',
-      },
-      {
-        label: 'Clients',
-        path: '/clients',
         image: heroClientsImage,
-        imagePosition: 'object-center',
-        heading: 'Clients',
-        cta: 'View Clients',
+        heading: 'Corporate Law',
+        description:
+          'Strategic support for company formation, governance, commercial agreements and corporate matters.',
+      },
+      {
+        image: heroContactImage,
+        heading: 'Business Law',
+        description:
+          'Commercially focused legal guidance for contracts, business operations and the decisions that move enterprises forward.',
       },
     ],
     []
@@ -310,7 +260,7 @@ function HeroSlider() {
       <div className="absolute inset-0">
         {slides.map((s, i) => (
           <div
-            key={s.label}
+            key={s.heading}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${i === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
           >
@@ -319,11 +269,7 @@ function HeroSlider() {
               alt=""
               className="w-full h-full object-cover"
               src={s.image}
-              style={{
-                objectPosition: s.imagePosition === 'object-top' ? 'center 30%' :
-                  s.imagePosition === 'object-bottom' ? 'center 70%' :
-                    'center 30%'
-              }}
+              style={{ objectPosition: 'center 30%' }}
             />
             {/* Enhanced gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--navy-dark)]/80 via-[color:var(--navy-dark)]/60 to-[color:var(--teal-accent)]/50" />
@@ -335,19 +281,23 @@ function HeroSlider() {
       {/* Foreground content */}
       <div className="relative z-20 h-full container-x flex items-center">
         <div className="text-left text-white max-w-2xl animate-fade-in-up">
-          <p className="text-xs uppercase tracking-widest text-white/90">{slides[index].label}</p>
-          <h1 className="h1 text-white mt-2 drop-shadow-lg font-[var(--font-heading)]">{slides[index].heading}</h1>
+          <p className="text-xs uppercase tracking-widest text-white/90">Legal Services</p>
+          <TypewriterHeading
+            as="h1"
+            className="h1 text-white mt-2 drop-shadow-lg font-[var(--font-heading)]"
+            text={slides[index].heading}
+          />
           <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white max-w-xl mt-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_2px_2px_8px_rgba(0,0,0,0.8)]">
-            Delivering clarity and excellence across international legal matters.
+            {slides[index].description}
           </p>
 
           <div className="mt-8 flex items-center gap-3 flex-wrap">
             <Button
-              to={slides[index].path}
+              to="/expertise"
               variant="primary"
               className="bg-white text-[color:var(--navy-dark)] hover:bg-white/90"
             >
-              {slides[index].cta}
+              Explore Expertise
             </Button>
           </div>
 

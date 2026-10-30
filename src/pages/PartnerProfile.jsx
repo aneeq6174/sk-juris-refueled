@@ -147,13 +147,13 @@ function KhurramProfile({ partner }) {
             <div className="relative aspect-[4/5] max-h-[42rem] overflow-hidden bg-[color:var(--navy-medium)]">
               <img
                 src={partner.image}
-                alt="Sheikh Khurram Abbas, Senior Partner at SK Juris & Co."
+                alt="Sheikh Khurram Abbas, Senior Partner at SKJC"
                 className="h-full w-full object-cover object-[center_30%]"
                 fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--navy-dark)]/50 via-transparent to-transparent" />
               <div className="absolute bottom-5 left-5 text-xs uppercase tracking-[0.18em] text-white/80">
-                SK Juris &amp; Co.
+                SKJC
               </div>
             </div>
           </div>

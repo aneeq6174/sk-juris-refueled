@@ -168,6 +168,21 @@ p, li {
   animation: fade-in-up 800ms var(--ease-out) forwards;
 }
 
+@keyframes typewriter-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.typewriter-caret {
+  display: inline-block;
+  height: 0.9em;
+  margin-left: 0.12em;
+  border-right: 2px solid var(--gold-primary);
+  vertical-align: -0.08em;
+  animation: typewriter-caret-blink 800ms step-end infinite;
+}
+
 @keyframes fade-out {
   to {
     opacity: 0;

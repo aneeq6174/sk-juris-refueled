@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/SKJ logo.png';
 import Button from './Button';
+import BrandWordmark from './BrandWordmark.jsx';
 
 const links = [
   { to: '/', label: 'Home' },
@@ -49,13 +49,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg">
-                <img
-                  src={logo}
-                  alt="SK Juris & Co. Logo"
-                  className="h-16 sm:h-36 w-auto object-contain"
-                />
-              </div>
+              <BrandWordmark />
             </div>
             <p className="mt-4 text-sm text-slate-400">
               Providing exceptional international legal services with integrity and excellence.
@@ -93,7 +87,7 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-x py-4 text-center text-xs sm:text-sm text-slate-400">
-          © 2025 SK Juris & Co. All rights reserved.
+          © 2025 SKJC. All rights reserved.
         </div>
       </div>
     </footer>

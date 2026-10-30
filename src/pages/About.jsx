@@ -62,11 +62,11 @@ export default function About() {
         <div className="container-x section text-center">
           <h1 className="h1 font-[var(--font-heading)] text-white">About Us</h1>
           <p className="lead mx-auto mt-5 max-w-3xl text-white">
-            SK Juris &amp; Co. is a Pakistan-based corporate law firm offering
-            specialized legal services across a broad range of practice areas.
-            Our lawyers draw on collective expertise and experience to deliver
-            effective, practical solutions for clients who demand the
-            sophistication of a leading law firm.
+            SKJC is a Pakistan-based corporate law firm offering specialized
+            legal services across a broad range of practice areas. Our lawyers
+            draw on collective expertise and experience to deliver effective,
+            practical solutions for clients who demand the sophistication of a
+            leading law firm.
           </p>
         </div>
       </section>

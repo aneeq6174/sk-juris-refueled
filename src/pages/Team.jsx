@@ -13,7 +13,7 @@ import teamHeroImage from '../team/team hero.JPG';
 // e.g. "01 - Waqas Mahmood Kasuri - Advocate.jpg"
 // Robust to inconsistent spacing around dashes, e.g. "01-Name-Position.jpg"
 function parseTeamFilename(filename) {
-  const nameWithoutExt = filename.replace(/\.(jpg|jpeg|JPG|JPEG)$/, '');
+  const nameWithoutExt = filename.replace(/\.(png|jpe?g)$/i, '');
   // split on a dash with optional surrounding whitespace, instead of requiring " - " exactly
   const parts = nameWithoutExt.split(/\s*-\s*/).filter(Boolean);
 
@@ -72,7 +72,7 @@ function parseTeamFilename(filename) {
 }
 
 // Dynamically import partner images lazily
-const partnerModules = import.meta.glob('../team/Partners/*.{jpg,jpeg,JPG,JPEG}');
+const partnerModules = import.meta.glob('../team/Partners/*.{png,jpg,jpeg,PNG,JPG,JPEG}');
 const partnerEntries = Object.entries(partnerModules)
   .map(([path, importer]) => {
     const filename = path.split('/').pop();
@@ -85,7 +85,7 @@ const partnerEntries = Object.entries(partnerModules)
   .sort((a, b) => a.sortKey - b.sortKey);
 
 // Dynamically import team member images lazily (excluding Partners folder, hero image, and Khurram Shehzad)
-const teamModules = import.meta.glob('../team/*.{jpg,jpeg,JPG,JPEG}');
+const teamModules = import.meta.glob('../team/*.{png,jpg,jpeg,PNG,JPG,JPEG}');
 const teamEntries = Object.entries(teamModules)
   .filter(([path]) => {
     const filename = path.split('/').pop().toLowerCase();
@@ -102,10 +102,9 @@ const teamEntries = Object.entries(teamModules)
   })
   .sort((a, b) => a.sortKey - b.sortKey);
 
-// Per-photo crop tuning. Add one entry per filename as needed (use the exact new filename, e.g. "01 - Waqas Mahmood Kasuri - Advocate.jpg").
+// Per-photo crop tuning. Add one entry per filename as needed.
 // Accepts any valid CSS object-position value, e.g. 'top', 'center 20%', '50% 30%'.
 const CROP_OVERRIDES = {
-  // '01 - Waqas Mahmood Kasuri - Advocate.jpg': 'center 20%',
 };
 
 export default function Team() {

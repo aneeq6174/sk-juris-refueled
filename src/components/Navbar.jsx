@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import logo from '../assets/SKJ logo.png';
+import BrandWordmark from './BrandWordmark.jsx';
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -43,7 +43,7 @@ export default function Navbar() {
     <header className={`sticky top-0 z-50 text-white shadow-md transition-all duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'} ${isScrolled ? 'bg-[color:var(--navy-dark)]/95 backdrop-blur-md h-16 sm:h-20 shadow-lg' : 'bg-[color:var(--navy-dark)] h-20 sm:h-24'}`}>
       <div className={`container-x flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16 sm:h-20' : 'h-20 sm:h-24'}`}>
         <Link to="/" className="flex items-center gap-2 transition-transform duration-300 hover:scale-105" onClick={handleNavigate}>
-          <img src={logo} alt="SK Juris & Co. Logo" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-20 sm:h-24' : 'h-28 sm:h-32 lg:h-38'}`} />
+          <BrandWordmark />
         </Link>
 
         <div className="flex items-center gap-3">

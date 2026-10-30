@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../assets/SKJ logo.png';
+import BrandWordmark from './BrandWordmark.jsx';
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,9 +23,8 @@ export default function PageLoader() {
   return (
     <div className="fixed inset-0 bg-[color:var(--navy-dark)] flex items-center justify-center z-[9999] animate-fade-out">
       <div className="animate-pulse">
-        <img src={logo} alt="SK Juris & Co." className="h-32 w-auto" />
+        <BrandWordmark className="items-center" />
       </div>
     </div>
   );
 }
-
