@@ -54,6 +54,41 @@ export const teamMembers = [
     filename: '05 - Amir Rasheed Bhatti - Advocate High Court.jpeg',
   },
   {
+    name: 'Usman Azmat',
+    designation: 'Advocate High Court',
+    filename: '06 - Usman Azmat - Advocate High Court.jpeg',
+  },
+  {
+    name: 'Muhammad Usman Wagha',
+    designation: 'Advocate High Court',
+    filename: '07 - Muhammad Usman Wagha - Advocate High Court.jpeg',
+  },
+  {
+    name: 'Lubna Khurram Khan',
+    designation: 'Advocate',
+    filename: '08 - Lubna Khurram Khan - Advocate.jpeg',
+  },
+  {
+    name: 'Maqsood Ahmad Bhatti',
+    designation: 'Attorney at Law',
+    filename: '09 - Maqsood Ahmad Bhatti - Attorney at Law.jpeg',
+  },
+  {
+    name: 'Ahsan Bhatti',
+    designation: 'Attorney at Law',
+    filename: '10 - Ahsan Bhatti - Attorney at Law.jpeg',
+  },
+  {
+    name: 'Adil Hussain',
+    designation: 'Attorney at Law',
+    filename: '11 - Adil Hussain - Attorney at Law.jpeg',
+  },
+  {
+    name: 'Waseem Zafar',
+    designation: 'Attorney at Law',
+    filename: '12 - Waseem Zafar - Attorney at Law.jpeg',
+  },
+  {
     name: 'Hussain Nasir',
     designation: 'Advocate',
     filename: '13 - Hussain Nasir - Advocate.jpeg',
