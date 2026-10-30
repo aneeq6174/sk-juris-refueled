@@ -32,7 +32,12 @@ const khurramProfile = {
   ],
   clients: [
     'Federation of Pakistan Chambers of Commerce and Industry',
-    'Lahore, Islamabad and other leading chambers of commerce and industry',
+    'Lahore Chamber of Commerce and Industry',
+    'Islamabad Chamber of Commerce and Industry',
+    'Sialkot Chamber of Commerce and Industry',
+    'Faisalabad Chamber of Commerce and Industry',
+    'Rawalpindi Chamber of Commerce and Industry',
+    'Gujranwala Chamber of Commerce and Industry',
     'Pakistan Chemical Manufacturers Association',
     'All Pakistan Meat Exporters and Processors Association',
     'Rice Exporters Association of Pakistan',
@@ -41,6 +46,23 @@ const khurramProfile = {
     'Pakistan Ferrous and Non-Ferrous Metals Association',
     'Pakistan Coating Association',
     'Pakistan Yarn Manufacturers Association (North Zone)',
+  ],
+};
+
+const naghProfile = {
+  affiliations: [
+    "The Honourable Society of Lincoln's Inn, London",
+    'International Bar Association (IBA), United Kingdom',
+    'Punjab Bar Council, Pakistan',
+    'Lahore Bar Association',
+    'Lahore Chamber of Commerce & Industry (since 2010)',
+    'Federal Board of Revenue (FBR) registered practice',
+    'The Law Society of the United Kingdom, London',
+    'International Lawyers Association (ILA), United Kingdom',
+    'Lahore High Court Bar Association',
+    'Lahore Tax Bar Association',
+    'Ferozepur Road Industrial Association (FRIA), Executive Member',
+    'IPO Pakistan registered practice',
   ],
 };
 
@@ -351,6 +373,200 @@ function KhurramProfile({ partner }) {
   );
 }
 
+function NaghmanaProfile({ partner }) {
+  return (
+    <>
+      <section className="relative overflow-hidden bg-[color:var(--navy-dark)] text-white">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-24 -top-32 h-[34rem] w-[34rem] rounded-full border border-white/5"
+        />
+        <div className="container-x relative grid items-center gap-10 py-12 sm:py-16 lg:min-h-[42rem] lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-20">
+          <div>
+            <nav aria-label="Breadcrumb" className="mb-12 text-sm text-white/60">
+              <Link to="/about" className="transition-colors hover:text-white">
+                About Us
+              </Link>
+              <span aria-hidden="true" className="mx-3 text-[color:var(--gold-primary)]">/</span>
+              <span>Our Partner</span>
+            </nav>
+
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--gold-primary)]">
+              Founder &amp; Legal Head, TCI
+            </p>
+            <h1 className="mt-5 max-w-xl font-[var(--font-heading)] text-4xl font-medium leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Naghmana
+              <span className="mt-1 block text-[color:var(--gold-light)]">Shehzadi</span>
+            </h1>
+            <p className="mt-5 text-lg font-medium text-white/85">
+              Barrister-at-Law, Lincoln&apos;s Inn · Senior Advocate High Court
+            </p>
+            <p className="mt-7 max-w-xl text-base leading-8 text-white/70 sm:text-lg">
+              Bringing more than two decades of corporate and commercial legal
+              experience, with qualifications and professional affiliations
+              spanning Pakistan and the United Kingdom.
+            </p>
+            <ul className="mt-7 flex flex-wrap gap-2">
+              {['Corporate & Commercial Law', 'International Economic Law', 'England & Wales · Pakistan'].map((area) => (
+                <li
+                  key={area}
+                  className="border border-white/25 px-3 py-2 text-sm text-white/90"
+                >
+                  {area}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9">
+              <Button to="/contact" variant="primary">
+                Contact the firm
+              </Button>
+            </div>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[34rem]">
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-4 -left-4 right-8 top-8 border border-[color:var(--gold-primary)]/70"
+            />
+            <div className="relative aspect-[4/5] max-h-[42rem] overflow-hidden bg-[color:var(--navy-medium)]">
+              <img
+                src={partner.image}
+                alt="Naghmana Shehzadi, Barrister-at-Law and Senior Advocate High Court"
+                className="h-full w-full object-cover object-[center_30%]"
+                fetchPriority="high"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--navy-dark)]/50 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5 text-xs uppercase tracking-[0.18em] text-white/80">
+                SKJC
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 bg-white">
+        <div className="container-x grid divide-y divide-slate-200 py-2 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+          {[
+            ['20+', 'Years in corporate and commercial law'],
+            ['LL.M', 'International Economic & Corporate Law'],
+            ['Lincoln’s Inn', 'Barrister-at-Law, England & Wales'],
+            ['Since 2010', 'Lahore Chamber of Commerce & Industry'],
+          ].map(([value, label]) => (
+            <div key={label} className="py-6 sm:px-6 lg:px-7">
+              <p className="font-[var(--font-heading)] text-2xl text-[color:var(--navy-dark)]">
+                {value}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-500">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <ProfileSection>
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <SectionHeading eyebrow="Profile" title="Strategic counsel with a global perspective">
+            A senior practitioner at the forefront of Pakistan’s corporate and
+            commercial legal landscape for more than two decades.
+          </SectionHeading>
+          <div className="border-l-2 border-[color:var(--gold-primary)] py-1 pl-6 sm:pl-9">
+            <p className="text-lg leading-8 text-slate-700">
+              Barrister Naghmana Shehzadi brings strategic counsel, courtroom
+              experience and a strong commitment to professional integrity.
+              Called to the Bar of England and Wales by the Honourable Society
+              of Lincoln’s Inn and a Senior Advocate of the High Court of
+              Pakistan, she offers clients experience across both legal
+              jurisdictions.
+            </p>
+          </div>
+        </div>
+      </ProfileSection>
+
+      <ProfileSection className="bg-white">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <SectionHeading eyebrow="Education & credentials" title="A foundation in international legal practice" />
+          <div className="space-y-0">
+            {[
+              ['Barrister-at-Law', 'England and Wales; called by the Honourable Society of Lincoln’s Inn.'],
+              ['Senior Advocate', 'High Court of Pakistan.'],
+              ['Master of Laws (LL.M)', 'Specialisation in International Economic and Corporate Law, University of the Punjab.'],
+            ].map(([title, detail]) => (
+              <article
+                key={title}
+                className="grid gap-2 border-t border-slate-200 py-6 sm:grid-cols-[12rem_1fr] sm:gap-6"
+              >
+                <p className="text-sm font-semibold uppercase tracking-wide text-[color:var(--teal-accent)]">
+                  {title}
+                </p>
+                <p className="text-lg leading-7 text-[color:var(--navy-dark)]">{detail}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </ProfileSection>
+
+      <ProfileSection className="bg-[color:var(--warm-white)]">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <SectionHeading eyebrow="Professional network" title="Connected across institutions and industries">
+            Active engagement with bar associations, legal institutions and
+            business organisations in Pakistan and internationally.
+          </SectionHeading>
+          <DetailList items={naghProfile.affiliations} />
+        </div>
+      </ProfileSection>
+
+      <ProfileSection className="bg-[color:var(--navy-dark)] text-white">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <SectionHeading eyebrow="International perspective" title="Legal insight across borders" dark />
+          <div className="border-t border-white/20 pt-6">
+            <p className="text-lg leading-8 text-white/80">
+              Her professional and industry engagements extend across Pakistan,
+              the United Kingdom, the Middle East and Asia. This cross-sector
+              network informs the global perspective she brings to corporate
+              and commercial legal matters.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/15 pt-5 text-sm uppercase tracking-[0.14em] text-[color:var(--gold-light)]">
+              {['Pakistan', 'United Kingdom', 'Middle East', 'Asia'].map((place) => (
+                <span key={place}>{place}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </ProfileSection>
+
+      <section className="bg-[color:var(--teal-accent)] text-white">
+        <div className="container-x flex flex-col gap-8 py-12 sm:py-14 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+              SKJC
+            </p>
+            <h2 className="mt-3 font-[var(--font-heading)] text-3xl text-white">
+              Discuss your legal requirements
+            </h2>
+            <p className="mt-3 text-white/80">
+              Lahore · Islamabad
+              <span className="mx-2" aria-hidden="true">·</span>
+              +92 300 4931839
+            </p>
+            <a
+              href="mailto:office@skjuris.com"
+              className="mt-2 inline-block text-sm text-white/80 underline decoration-white/40 underline-offset-4 transition-colors hover:text-white"
+            >
+              office@skjuris.com
+            </a>
+          </div>
+          <Button
+            to="/contact"
+            variant="outline"
+            className="w-fit border-white text-white hover:bg-white hover:text-[color:var(--navy-dark)]"
+          >
+            Contact the firm
+          </Button>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export default function PartnerProfile() {
   const { slug } = useParams();
   const partner = partners.find((item) => item.slug === slug);
@@ -359,6 +575,10 @@ export default function PartnerProfile() {
 
   if (partner.slug === 'sheikh-khurram-shehzad') {
     return <KhurramProfile partner={partner} />;
+  }
+
+  if (partner.slug === 'naghmana-shehzadi') {
+    return <NaghmanaProfile partner={partner} />;
   }
 
   return (

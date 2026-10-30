@@ -32,6 +32,12 @@ export const partners = [
     designation: 'Partner',
     filename: 'Nisar Safdar Naqvi.jpeg',
   },
+  {
+    slug: 'naghmana-shehzadi',
+    name: 'Naghmana Shehzadi',
+    designation: 'Barrister-at-Law · Senior Advocate High Court',
+    filename: 'Naghmana Shehzadi - Senior Advocate High Court.jpeg',
+  },
 ].map((partner) => ({
   ...partner,
   image: getImageUrl(partnerImages, partner.filename),

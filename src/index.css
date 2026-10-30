@@ -58,6 +58,8 @@ html {
   height: 100%;
   overflow-y: auto;
   overscroll-behavior-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body {
@@ -66,12 +68,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 /* Smooth scroll for all browsers */
@@ -79,22 +83,12 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar styling */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--navy-dark), var(--teal-accent));
-  border-radius: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-primary);
+/* Keep scrolling enabled while hiding the browser scrollbar. */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* Re-usable utilities */

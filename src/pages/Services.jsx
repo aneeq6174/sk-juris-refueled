@@ -1,76 +1,120 @@
-import React from 'react';
-import AnimatedSection from '../components/AnimatedSection';
-import Button from '../components/Button';
+import AnimatedSection from '../components/AnimatedSection.jsx';
+import Button from '../components/Button.jsx';
 
-// Service icons mapping
-const serviceIcons = {
-  'Taxation Law': (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-    </svg>
-  ),
-  'International Law': (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  'Corporate Law': (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-    </svg>
-  ),
-  'Business Law': (
-    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  ),
-};
+const services = [
+  {
+    number: '01',
+    title: 'Taxation Law',
+    description:
+      'Practical guidance for businesses and individuals navigating Pakistan’s tax framework. We help clients understand their obligations, respond to regulatory requirements, and address tax questions that arise in day-to-day operations and significant transactions.',
+    areas: [
+      'Tax planning and compliance',
+      'Income and sales tax matters',
+      'Tax notices, audits, and assessments',
+      'Representation in tax disputes and appeals',
+    ],
+  },
+  {
+    number: '02',
+    title: 'International Commercial Law',
+    description:
+      'Advice for commercial matters involving international counterparties, cross-border transactions, and trade or investment activity. We help clients assess applicable legal frameworks, structure commercial arrangements, and identify issues that may arise across jurisdictions.',
+    areas: [
+      'International commercial contracts and negotiations',
+      'Cross-border trade and investment arrangements',
+      'Jurisdiction, governing law, and enforcement considerations',
+      'Coordination of cross-border commercial disputes',
+    ],
+  },
+  {
+    number: '03',
+    title: 'Corporate Law',
+    description:
+      'Clear, business-focused advice throughout the life of a company, from formation and governance to structural change and ongoing compliance. Our approach is to help decision-makers understand their legal options and document them carefully.',
+    areas: [
+      'Company formation and structuring',
+      'Corporate governance and regulatory filings',
+      'Shareholder arrangements and restructuring',
+      'Mergers, acquisitions, and transaction support',
+    ],
+  },
+];
 
-const serviceDescriptions = {
-  'Taxation Law': 'Expert counsel on domestic and cross-border tax planning, compliance, disputes, and regulatory matters.',
-  'International Law': 'Navigating complex international treaties, cross-border transactions, and global regulatory frameworks.',
-  'Corporate Law': 'Mergers, acquisitions, governance, company formation, and comprehensive corporate compliance.',
-  'Business Law': 'End-to-end legal support for commercial contracts, joint ventures, and business operations.',
-};
+function ServiceSection({ service, index }) {
+  const isAlternate = index % 2 === 1;
 
-function ServiceCard({ title }) {
   return (
-    <article className="card p-8 text-center transition-all duration-400 hover:shadow-xl hover:scale-[1.03] group relative overflow-hidden border-2 border-transparent hover:border-[color:var(--teal-accent)] service-card">
-      {/* Icon */}
-      <div className="h-20 w-20 rounded-full bg-gradient-to-br from-[color:var(--teal-accent)] to-[color:var(--navy-medium)] flex items-center justify-center mx-auto mb-6 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-        {serviceIcons[title]}
-      </div>
+    <section
+      id={service.title.toLowerCase().replaceAll(' ', '-')}
+      className={`section scroll-mt-24 ${isAlternate ? 'bg-white' : ''}`}
+    >
+      <div className="container-x grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <AnimatedSection>
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--teal-accent)]">
+              Practice area · {service.number}
+            </p>
+            <h2 className="h2 mt-4 font-[var(--font-heading)] text-[color:var(--navy-dark)]">
+              {service.title}
+            </h2>
+            <p className="mt-5 text-base leading-8 text-slate-600 sm:text-lg">
+              {service.description}
+            </p>
+            <Button to="/contact" variant="outline" className="mt-7">
+              Discuss your matter
+            </Button>
+          </div>
+        </AnimatedSection>
 
-      <h3 className="font-semibold text-xl font-[var(--font-accent)] mb-3">{title}</h3>
-      <p className="text-slate-600">{serviceDescriptions[title]}</p>
-
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--navy-dark)]/95 to-[color:var(--teal-accent)]/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-        <Button variant="outline" to="/contact" className="text-white border-white hover:bg-white hover:text-[color:var(--navy-dark)]">
-          Contact Us
-        </Button>
+        <AnimatedSection delay={150}>
+          <div className="border-t-2 border-[color:var(--gold-primary)] pt-5">
+            <h3 className="font-[var(--font-heading)] text-xl font-semibold text-[color:var(--navy-dark)]">
+              How we can assist
+            </h3>
+            <ul className="mt-4 divide-y divide-slate-200">
+              {service.areas.map((area) => (
+                <li
+                  key={area}
+                  className="flex gap-4 py-4 text-slate-700"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--gold-primary)]"
+                  />
+                  <span>{area}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </AnimatedSection>
       </div>
-    </article>
+    </section>
   );
 }
 
-const services = ['Taxation Law', 'International Law', 'Corporate Law', 'Business Law'];
-
 export default function Services() {
   return (
-    <section className="container-x section">
-      <AnimatedSection>
-        <h1 className="h1 font-[var(--font-heading)]">Expertise</h1>
-        <p className="lead mt-3">A comprehensive suite of legal services for international clients.</p>
-      </AnimatedSection>
-
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-        {services.map((title, index) => (
-          <AnimatedSection key={title} delay={(index + 1) * 100}>
-            <ServiceCard title={title} />
+    <>
+      <section className="bg-[color:var(--navy-dark)] text-white">
+        <div className="container-x section">
+          <AnimatedSection>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--gold-primary)]">
+              SKJC · Legal expertise
+            </p>
+            <h1 className="h1 mt-4 font-[var(--font-heading)] text-white">
+              Expertise
+            </h1>
+            <p className="lead mt-4 max-w-3xl text-white/75">
+              Practical legal guidance shaped around your business, your
+              obligations, and the decisions ahead.
+            </p>
           </AnimatedSection>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {services.map((service, index) => (
+        <ServiceSection key={service.number} service={service} index={index} />
+      ))}
+    </>
   );
 }

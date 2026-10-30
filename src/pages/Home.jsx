@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import heroServicesImage from '../assets/Hero-Services.jpg';
-import heroAboutUsImage from '../assets/Hero-about-us.jpg';
-import heroContactImage from '../assets/Hero-contact-us.jpg';
-import heroClientsImage from '../assets/hero-clients.jpeg';
+import taxationLawImage from '../assets/Taxation Law.jpeg';
+import internationalLawImage from '../assets/International Law.jpeg';
+import corporateLawImage from '../assets/Corporate Law.jpeg';
 import officeImage from '../assets/home-office-1.jpg';
 
 // Import animation components
@@ -69,16 +68,16 @@ export default function Home() {
               </header>
             </AnimatedSection>
 
-            {/* Service cards - 4 real services in a 2x2 grid */}
+            {/* Service cards - practice-area names only */}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
               {[
-                ['Taxation Law', 'Expert counsel on domestic and cross-border tax planning, compliance, and disputes.'],
-                ['International Law', 'Navigating complex international treaties, cross-border transactions, and global regulatory frameworks.'],
-                ['Corporate Law', 'Mergers, acquisitions, governance, company formation, and corporate compliance.'],
-                ['Business Law', 'End-to-end legal support for commercial contracts, joint ventures, and business operations.'],
-              ].map(([title, desc], index) => (
+                'Taxation Law',
+                'International Law',
+                'Corporate Law',
+                'Business Law',
+              ].map((title, index) => (
                 <AnimatedSection key={title} delay={(index + 1) * 100}>
-                  <ServiceCard title={title} description={desc} />
+                  <ServiceCard title={title} />
                 </AnimatedSection>
               ))}
             </div>
@@ -159,7 +158,7 @@ const serviceIcons = {
   ),
 };
 
-function ServiceCard({ title, description }) {
+function ServiceCard({ title }) {
   return (
     <article className="card p-6 text-center transition-all duration-400 hover:shadow-xl hover:scale-[1.03] group relative overflow-hidden border-2 border-transparent hover:border-[color:var(--teal-accent)] service-card">
       {/* Icon */}
@@ -172,7 +171,6 @@ function ServiceCard({ title, description }) {
       </div>
 
       <h3 className="font-semibold text-lg font-[var(--font-accent)]">{title}</h3>
-      <p className="text-slate-600 mt-2">{description}</p>
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--navy-dark)]/95 to-[color:var(--teal-accent)]/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400">
@@ -205,26 +203,20 @@ function HeroSlider() {
   const slides = useMemo(
     () => [
       {
-        image: heroAboutUsImage,
+        image: taxationLawImage,
         heading: 'Taxation Law',
         description:
           'Clear advice on tax planning, compliance and disputes for businesses operating in a changing regulatory landscape.',
       },
       {
-        image: heroServicesImage,
-        heading: 'International Law',
+        image: internationalLawImage,
+        heading: 'International Commercial Law',
         description:
           'Practical counsel for cross-border transactions, international trade and the legal challenges of global business.',
       },
       {
-        image: heroClientsImage,
+        image: corporateLawImage,
         heading: 'Corporate Law',
-        description:
-          'Strategic support for company formation, governance, commercial agreements and corporate matters.',
-      },
-      {
-        image: heroContactImage,
-        heading: 'Business Law',
         description:
           'Commercially focused legal guidance for contracts, business operations and the decisions that move enterprises forward.',
       },
