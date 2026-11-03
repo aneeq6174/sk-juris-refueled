@@ -209,7 +209,6 @@ function HeroSlider() {
         image: taxationLawImage,
         heading: 'Taxation Law',
         description: 'Tax planning & strategy for businesses.',
-        listLabel: 'Counsel on',
         focusAreas: [
           'Corporate and personal taxation',
           'Treaty relief',
@@ -221,7 +220,6 @@ function HeroSlider() {
         image: realEstateLawImage,
         heading: 'Real Estate Law',
         description: 'Legal strategy for property transactions, investment and development.',
-        listLabel: 'Counsel on',
         focusAreas: [
           'Project approvals',
           'Construction contracts',
@@ -233,7 +231,6 @@ function HeroSlider() {
         image: internationalCommercialLawImage,
         heading: 'International Commercial Law',
         description: 'Business & trade across borders.',
-        listLabel: 'Advice on',
         focusAreas: [
           'International contracts',
           'Imports and exports',
@@ -246,7 +243,6 @@ function HeroSlider() {
         image: intellectualPropertyLawImage,
         heading: 'Intellectual Property Law',
         description: 'Legal protection of brands, innovation and creative work.',
-        listLabel: 'Counsel on',
         focusAreas: [
           'Trademarks',
           'Patents',
@@ -260,7 +256,6 @@ function HeroSlider() {
         image: corporateLawImage,
         heading: 'Corporate Law',
         description: 'From establishing a company to advising on its business affairs.',
-        listLabel: 'Counsel on',
         focusAreas: [
           'Licensing',
           'Regulatory compliance',
@@ -274,7 +269,6 @@ function HeroSlider() {
         image: arbitrationImage,
         heading: 'Arbitration',
         description: 'Representation in domestic and international arbitration.',
-        listLabel: 'Counsel on',
         focusAreas: [
           'Commercial claims',
           'Arbitration agreements',
@@ -347,10 +341,7 @@ function HeroSlider() {
           </p>
 
           <div className="mt-4 max-w-xl">
-            <p className="text-sm font-semibold text-[color:var(--gold-light)]">
-              {slides[index].listLabel}
-            </p>
-            <ul className="mt-2 grid grid-cols-2 gap-x-5 gap-y-1.5 text-sm text-white/90 sm:text-base">
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-1.5 text-base text-white/90 sm:text-lg">
               {slides[index].focusAreas.map((area) => (
                 <li key={area} className="flex items-start gap-2">
                   <span aria-hidden="true" className="shrink-0 text-[color:var(--gold-light)]">
