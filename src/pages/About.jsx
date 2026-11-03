@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import AnimatedSection from '../components/AnimatedSection.jsx';
-import { partners, teamMembers } from '../data/people.js';
+import { partners, regionalPartners, teamMembers } from '../data/people.js';
 
 function PersonCard({ person, partner = false }) {
   const content = (
@@ -87,20 +87,16 @@ export default function About() {
         </section>
       </AnimatedSection>
 
-      <section className="section bg-[color:var(--surface)]">
-        <div className="container-x">
-          <header className="mb-10 text-center">
-            <h2 className="h2 font-[var(--font-heading)]">Our Partners</h2>
-          </header>
-          <div className="grid gap-x-8 gap-y-6 lg:grid-cols-2">
-            {partners.map((partner, index) => (
-              <AnimatedSection key={partner.slug} delay={index * 100}>
-                <PersonCard person={partner} partner />
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PartnerGroup
+        title="Our Partners"
+        people={partners}
+        className="bg-[color:var(--surface)]"
+      />
+
+      <PartnerGroup
+        title="Regional Partners"
+        people={regionalPartners}
+      />
 
       <section id="team" className="section scroll-mt-24">
         <div className="container-x">
@@ -120,5 +116,24 @@ export default function About() {
         </div>
       </section>
     </>
+  );
+}
+
+function PartnerGroup({ title, people, className = '' }) {
+  return (
+    <section className={`section ${className}`}>
+      <div className="container-x">
+        <header className="mb-10 text-center">
+          <h2 className="h2 font-[var(--font-heading)]">{title}</h2>
+        </header>
+        <div className="grid gap-x-8 gap-y-6 lg:grid-cols-2">
+          {people.map((person, index) => (
+            <AnimatedSection key={person.slug} delay={(index % 4) * 100}>
+              <PersonCard person={person} partner />
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -1,9 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import taxationLawImage from '../assets/Taxation Law.jpeg';
-import internationalLawImage from '../assets/International Law.jpeg';
+import realEstateLawImage from '../assets/Property Law.jpeg';
+import internationalCommercialLawImage from '../assets/International Law.jpeg';
+import intellectualPropertyLawImage from '../assets/Intellectual Property Law.svg';
 import corporateLawImage from '../assets/Corporate Law.jpeg';
-import officeImage from '../assets/home-office-1.jpg';
+import arbitrationImage from '../assets/Arbitration Law.jpeg';
+import officeImage from '../assets/home-office-1.jpeg';
 
 // Import animation components
 import AnimatedSection from '../components/AnimatedSection';
@@ -105,14 +108,14 @@ export default function Home() {
               </header>
             </AnimatedSection>
 
-            <div className="grid gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 items-center">
-              {clientLogos.slice(0, 6).map((logoSrc, index) => (
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4 items-center">
+              {clientLogos.slice(0, 4).map((logoSrc, index) => (
                 <AnimatedSection key={logoSrc} delay={index * 50}>
-                  <div className="h-20 w-full bg-white rounded-xl shadow-sm ring-1 ring-slate-200 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg p-4 group">
+                  <div className="min-h-[160px] w-full bg-white rounded-xl shadow-sm ring-1 ring-slate-200 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg p-6 group">
                     <img
                       src={logoSrc}
                       alt="Client logo"
-                      className="max-h-12 w-auto object-contain opacity-100 transition-all duration-300"
+                      className="max-h-24 w-auto object-contain opacity-100 transition-all duration-300"
                     />
                   </div>
                 </AnimatedSection>
@@ -205,20 +208,80 @@ function HeroSlider() {
       {
         image: taxationLawImage,
         heading: 'Taxation Law',
-        description:
-          'Clear advice on tax planning, compliance and disputes for businesses operating in a changing regulatory landscape.',
+        description: 'Tax planning & strategy for businesses.',
+        listLabel: 'Counsel on',
+        focusAreas: [
+          'Corporate and personal taxation',
+          'Treaty relief',
+          'Compliance',
+          'Tax disputes',
+        ],
       },
       {
-        image: internationalLawImage,
+        image: realEstateLawImage,
+        heading: 'Real Estate Law',
+        description: 'Legal strategy for property transactions, investment and development.',
+        listLabel: 'Counsel on',
+        focusAreas: [
+          'Project approvals',
+          'Construction contracts',
+          'Title, acquisitions, leases and mortgages',
+          'Property disputes',
+        ],
+      },
+      {
+        image: internationalCommercialLawImage,
         heading: 'International Commercial Law',
-        description:
-          'Practical counsel for cross-border transactions, international trade and the legal challenges of global business.',
+        description: 'Business & trade across borders.',
+        listLabel: 'Advice on',
+        focusAreas: [
+          'International contracts',
+          'Imports and exports',
+          'Trade finance',
+          'Cross-border transactions',
+          'Commercial disputes',
+        ],
+      },
+      {
+        image: intellectualPropertyLawImage,
+        heading: 'Intellectual Property Law',
+        description: 'Legal protection of brands, innovation and creative work.',
+        listLabel: 'Counsel on',
+        focusAreas: [
+          'Trademarks',
+          'Patents',
+          'Copyright',
+          'Designs',
+          'Licensing',
+          'Intellectual property disputes',
+        ],
       },
       {
         image: corporateLawImage,
         heading: 'Corporate Law',
-        description:
-          'Commercially focused legal guidance for contracts, business operations and the decisions that move enterprises forward.',
+        description: 'From establishing a company to advising on its business affairs.',
+        listLabel: 'Counsel on',
+        focusAreas: [
+          'Licensing',
+          'Regulatory compliance',
+          'Corporate governance',
+          'Mergers and acquisitions',
+          'Joint ventures',
+          'Commercial contracts',
+        ],
+      },
+      {
+        image: arbitrationImage,
+        heading: 'Arbitration',
+        description: 'Representation in domestic and international arbitration.',
+        listLabel: 'Counsel on',
+        focusAreas: [
+          'Commercial claims',
+          'Arbitration agreements',
+          'Proceedings',
+          'Settlements',
+          'Enforcement of awards',
+        ],
       },
     ],
     []
@@ -235,7 +298,7 @@ function HeroSlider() {
           setIndex((i) => (i + 1) % slides.length);
           return 0;
         }
-        return prev + 2.86; // Increment every 100ms for 3.5s total (more professional pace)
+        return prev + 1.67; // Increment every 100ms for a six-second slide.
       });
     }, 100);
 
@@ -282,6 +345,22 @@ function HeroSlider() {
           <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white max-w-xl mt-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_2px_2px_8px_rgba(0,0,0,0.8)]">
             {slides[index].description}
           </p>
+
+          <div className="mt-4 max-w-xl">
+            <p className="text-sm font-semibold text-[color:var(--gold-light)]">
+              {slides[index].listLabel}
+            </p>
+            <ul className="mt-2 grid grid-cols-2 gap-x-5 gap-y-1.5 text-sm text-white/90 sm:text-base">
+              {slides[index].focusAreas.map((area) => (
+                <li key={area} className="flex items-start gap-2">
+                  <span aria-hidden="true" className="shrink-0 text-[color:var(--gold-light)]">
+                    —
+                  </span>
+                  <span>{area}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="mt-8 flex items-center gap-3 flex-wrap">
             <Button

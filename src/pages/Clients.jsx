@@ -6,7 +6,7 @@ const logoModules = import.meta.glob('../assets/logos/*.{png,jpg,jpeg,PNG,JPG,JP
 // Helper to normalize and title-case display names
 function formatName(raw) {
   if (!raw || typeof raw !== 'string') return raw;
-  let s = raw.replace(/[_\-]+/g, ' ').replace(/\s+/g, ' ').trim();
+  let s = raw.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
   // remove trailing commas/periods
   s = s.replace(/[.,]+$/g, '');
   // Split words and title-case each
@@ -170,15 +170,12 @@ export default function Clients() {
               <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-stretch">
                 {clientLogos.map((logo, index) => (
                   <AnimatedSection key={logo.name || index} delay={(index % 8) * 60}>
-                    <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm ring-1 ring-slate-200 p-6 h-full min-h-[140px] transition-all duration-300 hover:scale-105 hover:shadow-md hover:ring-[color:var(--gold-primary)] group">
+                    <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm ring-1 ring-slate-200 p-6 h-full min-h-[160px] transition-all duration-300 hover:scale-105 hover:shadow-md hover:ring-[color:var(--gold-primary)] group">
                       <img
                         src={logo.src}
                         alt={logo.name}
-                        className="max-h-20 w-auto object-contain transition-all duration-300"
+                        className="max-h-24 w-auto object-contain transition-all duration-300"
                       />
-                      <p className="mt-3 text-sm text-center text-slate-500 leading-tight font-[var(--font-accent)] line-clamp-2">
-                        {logo.name}
-                      </p>
                     </div>
                   </AnimatedSection>
                 ))}
