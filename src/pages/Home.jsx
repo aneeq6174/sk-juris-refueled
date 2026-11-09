@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import taxationLawImage from '../assets/Taxation Law.jpeg';
 import realEstateLawImage from '../assets/Property Law.jpeg';
@@ -43,8 +43,9 @@ export default function Home() {
                   text="About SK Juris & Co. (SKJC)"
                 />
                 <p className="lead mt-3">
-                  Founded on principles of excellence and integrity, we have been at the forefront of
-                  international legal services for over two decades.
+                  SKJC is a corporate law firm centred on developing practical legal solutions by
+                  analysing the applicable legal frameworks as a whole, understanding the interests
+                  at stake, and assessing the implications beyond the immediate matter.
                 </p>
                 <div className="mt-6 grid grid-cols-3 gap-6">
                   <Stat value="500+" label="Cases Won" />
@@ -72,15 +73,16 @@ export default function Home() {
             </AnimatedSection>
 
             {/* Service cards - practice-area names only */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {[
-                'Taxation Law',
-                'International Law',
-                'Corporate Law',
-                'Business Law',
-              ].map((title, index) => (
-                <AnimatedSection key={title} delay={(index + 1) * 100}>
-                  <ServiceCard title={title} />
+                { title: 'Corporate Law', image: corporateLawImage },
+                { title: 'International Commercial Law', image: internationalCommercialLawImage },
+                { title: 'Intellectual Property Law', image: intellectualPropertyLawImage },
+                { title: 'Arbitration', image: arbitrationImage },
+                { title: 'Real Estate Law', image: realEstateLawImage },
+              ].map((service, index) => (
+                <AnimatedSection key={service.title} delay={(index + 1) * 100}>
+                  <ServiceCard title={service.title} image={service.image} />
                 </AnimatedSection>
               ))}
             </div>
@@ -103,8 +105,8 @@ export default function Home() {
           <div className="container-x">
             <AnimatedSection>
               <header className="mb-10 text-center">
-                <TypewriterHeading className="h2" text="Trusted Clients" />
-                <p className="lead mt-2">Organizations that rely on our cross-border legal expertise.</p>
+                <TypewriterHeading className="h2" text="Clients" />
+                <p className="lead mt-2">A selection of clients we have served.</p>
               </header>
             </AnimatedSection>
 
@@ -137,7 +139,7 @@ export default function Home() {
   );
 }
 
-// Service icons mapping
+// Fallback icons for service cards without a supplied image
 const serviceIcons = {
   'Taxation Law': (
     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -161,12 +163,14 @@ const serviceIcons = {
   ),
 };
 
-function ServiceCard({ title }) {
+function ServiceCard({ title, image }) {
   return (
     <article className="card p-6 text-center transition-all duration-400 hover:shadow-xl hover:scale-[1.03] group relative overflow-hidden border-2 border-transparent hover:border-[color:var(--teal-accent)] service-card">
-      {/* Icon */}
+      {/* Service image */}
       <div className="h-20 w-20 rounded-full bg-gradient-to-br from-[color:var(--teal-accent)] to-[color:var(--navy-medium)] flex items-center justify-center mx-auto mb-4 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-        {serviceIcons[title] || (
+        {image ? (
+          <img src={image} alt="" className="h-20 w-20 rounded-full object-cover" />
+        ) : serviceIcons[title] || (
           <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
@@ -200,8 +204,9 @@ function Stat({ value, label }) {
 
 // Hero Slider Component - Auto-fading slider with updated background images
 function HeroSlider() {
-  const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+  const elapsedRef = useRef(0);
+  const slideDuration = 5500;
 
   const slides = useMemo(
     () => [
@@ -277,34 +282,40 @@ function HeroSlider() {
           'Enforcement of awards',
         ],
       },
-    ],
+    ].sort((a, b) => {
+      const order = [
+        'Corporate Law',
+        'International Commercial Law',
+        'Intellectual Property Law',
+        'Arbitration',
+        'Real Estate Law',
+        'Taxation Law',
+      ];
+      return order.indexOf(a.heading) - order.indexOf(b.heading);
+    }),
     []
   );
 
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (isPaused) return;
-
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setIndex((i) => (i + 1) % slides.length);
-          return 0;
-        }
-        return prev + 1.67; // Increment every 100ms for a six-second slide.
-      });
+      elapsedRef.current += 100;
+      if (elapsedRef.current >= slideDuration) {
+        elapsedRef.current = 0;
+        setIndex((currentIndex) => (currentIndex + 1) % slides.length);
+        setProgress(0);
+        return;
+      }
+
+      setProgress((elapsedRef.current / slideDuration) * 100);
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isPaused, slides.length]);
+  }, [slideDuration, slides.length]);
 
   return (
-    <section
-      className="home-hero relative w-full overflow-hidden"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
+    <section className="home-hero relative w-full overflow-hidden">
       {/* Slides */}
       <div className="absolute inset-0">
         {slides.map((s, i) => (
@@ -328,12 +339,11 @@ function HeroSlider() {
       </div>
 
       {/* Foreground content */}
-      <div className="relative z-20 h-full container-x flex items-center">
+      <div className="relative z-20 h-full container-x flex flex-col justify-between py-8 sm:py-10 lg:py-8">
         <div className="text-left text-white max-w-2xl animate-fade-in-up">
-          <p className="text-xs uppercase tracking-widest text-white/90">Legal Services</p>
           <TypewriterHeading
             as="h1"
-            className="h1 text-white mt-2 drop-shadow-lg font-[var(--font-heading)]"
+            className="h1 text-white drop-shadow-lg font-[var(--font-heading)]"
             text={slides[index].heading}
           />
           <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white max-w-xl mt-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_2px_2px_8px_rgba(0,0,0,0.8)]">
@@ -363,31 +373,29 @@ function HeroSlider() {
             </Button>
           </div>
 
-          {/* Enhanced progress indicators - Fixed single-click */}
-          <div className="mt-6 flex items-center gap-2 slider-controls">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Go to slide ${i + 1}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setIndex(i);
-                  setProgress(0);
-                }}
-                className="slider-dot relative flex-1 h-1 bg-white/30 rounded-full overflow-hidden group cursor-pointer"
-                style={{ pointerEvents: 'auto', zIndex: 100 }}
-              >
-                <div
-                  className={`absolute inset-y-0 left-0 bg-[color:var(--gold-primary)] transition-all duration-100 ${i === index ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  style={{ width: i === index ? `${progress}%` : '0%' }}
-                />
-                <div className="absolute inset-0 bg-white/60 group-hover:bg-white/80 transition-colors" />
-              </button>
-            ))}
-          </div>
+        </div>
+        <div className="flex items-center gap-2 slider-controls">
+          {slides.map((slide, i) => (
+            <button
+              key={slide.heading}
+              type="button"
+              aria-label={`Go to ${slide.heading} slide`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                elapsedRef.current = 0;
+                setIndex(i);
+                setProgress(0);
+              }}
+              className="slider-dot group relative h-1 flex-1 cursor-pointer overflow-hidden rounded-full bg-white/30 transition-colors hover:bg-white/60"
+            >
+              <div
+                className={`absolute inset-y-0 left-0 z-10 bg-[color:var(--gold-primary)] transition-all duration-100 ${i === index ? 'opacity-100' : 'opacity-0'
+                  }`}
+                style={{ width: i === index ? `${progress}%` : '0%' }}
+              />
+            </button>
+          ))}
         </div>
       </div>
     </section>
