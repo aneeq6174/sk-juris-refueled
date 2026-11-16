@@ -42,7 +42,7 @@ export default function Home() {
                   className="h2"
                   text="About SK Juris & Co. (SKJC)"
                 />
-                <p className="lead mt-3">
+                <p className="lead mt-3 text-justify">
                   SKJC is a corporate law firm centred on developing practical legal solutions by
                   analysing the applicable legal frameworks as a whole, understanding the interests
                   at stake, and assessing the implications beyond the immediate matter.
@@ -68,7 +68,7 @@ export default function Home() {
             <AnimatedSection>
               <header className="mb-10 text-center">
                 <TypewriterHeading className="h2" text="Legal Services" />
-                <p className="lead mt-2">Comprehensive legal solutions tailored to your needs.</p>
+                <p className="lead mt-2">Services and counsel tailored to the client’s needs.</p>
               </header>
             </AnimatedSection>
 
@@ -106,7 +106,7 @@ export default function Home() {
             <AnimatedSection>
               <header className="mb-10 text-center">
                 <TypewriterHeading className="h2" text="Clients" />
-                <p className="lead mt-2">A selection of clients we have served.</p>
+                <p className="lead mt-2">The companies, organizations and business concerns we have served</p>
               </header>
             </AnimatedSection>
 
@@ -165,11 +165,11 @@ const serviceIcons = {
 
 function ServiceCard({ title, image }) {
   return (
-    <article className="card p-6 text-center transition-all duration-400 hover:shadow-xl hover:scale-[1.03] group relative overflow-hidden border-2 border-transparent hover:border-[color:var(--teal-accent)] service-card">
+    <article className="card text-center transition-all duration-400 hover:shadow-xl hover:scale-[1.03] group relative overflow-hidden border-2 border-transparent hover:border-[color:var(--teal-accent)] service-card">
       {/* Service image */}
-      <div className="h-20 w-20 rounded-full bg-gradient-to-br from-[color:var(--teal-accent)] to-[color:var(--navy-medium)] flex items-center justify-center mx-auto mb-4 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+      <div className="aspect-[4/3] w-full overflow-hidden bg-[color:var(--navy-medium)]">
         {image ? (
-          <img src={image} alt="" className="h-20 w-20 rounded-full object-cover" />
+          <img src={image} alt={`${title} service`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
         ) : serviceIcons[title] || (
           <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -177,7 +177,7 @@ function ServiceCard({ title, image }) {
         )}
       </div>
 
-      <h3 className="font-semibold text-lg font-[var(--font-accent)]">{title}</h3>
+      <h3 className="px-3 py-5 font-semibold text-lg font-[var(--font-accent)]">{title}</h3>
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--navy-dark)]/95 to-[color:var(--teal-accent)]/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400">
@@ -340,7 +340,7 @@ function HeroSlider() {
 
       {/* Foreground content */}
       <div className="relative z-20 h-full container-x flex flex-col justify-between py-8 sm:py-10 lg:py-8">
-        <div className="text-left text-white max-w-2xl animate-fade-in-up">
+        <div className="mx-12 max-w-2xl text-left text-white animate-fade-in-up sm:mx-14 lg:mx-16">
           <TypewriterHeading
             as="h1"
             className="h1 text-white drop-shadow-lg font-[var(--font-heading)]"
@@ -387,7 +387,7 @@ function HeroSlider() {
                 setIndex(i);
                 setProgress(0);
               }}
-              className="slider-dot group relative h-1 flex-1 cursor-pointer overflow-hidden rounded-full bg-white/30 transition-colors hover:bg-white/60"
+              className="slider-dot group relative h-1 flex-1 cursor-pointer overflow-hidden rounded-full bg-white/55 transition-colors hover:bg-white/70"
             >
               <div
                 className={`absolute inset-y-0 left-0 z-10 bg-[color:var(--gold-primary)] transition-all duration-100 ${i === index ? 'opacity-100' : 'opacity-0'
@@ -398,6 +398,34 @@ function HeroSlider() {
           ))}
         </div>
       </div>
+      <button
+        type="button"
+        aria-label="Previous slide"
+        onClick={() => {
+          elapsedRef.current = 0;
+          setIndex((currentIndex) => (currentIndex - 1 + slides.length) % slides.length);
+          setProgress(0);
+        }}
+        className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[color:var(--navy-dark)]/50 text-white opacity-50 shadow-lg backdrop-blur-sm transition hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:left-6 sm:h-14 sm:w-14"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.8">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        aria-label="Next slide"
+        onClick={() => {
+          elapsedRef.current = 0;
+          setIndex((currentIndex) => (currentIndex + 1) % slides.length);
+          setProgress(0);
+        }}
+        className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[color:var(--navy-dark)]/50 text-white opacity-50 shadow-lg backdrop-blur-sm transition hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-6 sm:h-14 sm:w-14"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.8">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
     </section>
   );
 }
