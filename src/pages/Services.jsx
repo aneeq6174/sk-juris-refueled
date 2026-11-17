@@ -1,5 +1,8 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import AnimatedSection from '../components/AnimatedSection.jsx';
 import Button from '../components/Button.jsx';
+import serviceDetails from '../data/serviceDetails.json';
+import { scrollToSection } from '../utils/scrollUtils.js';
 
 const services = [
   {
@@ -125,11 +128,152 @@ const services = [
   },
 ];
 
-function ServiceSection({ service, index }) {
+const serviceOrder = [
+  'corporate-law',
+  'international-commercial-law',
+  'intellectual-property-law',
+  'arbitration',
+  'real-estate-law',
+  'taxation-law',
+];
+
+const orderedServices = serviceOrder.map((id, index) => ({
+  ...services.find((service) => service.id === id),
+  number: String(index + 1).padStart(2, '0'),
+}));
+
+function renderSegments(segments, keyPrefix) {
+  return segments.map((segment, index) => {
+    const key = `${keyPrefix}-${index}`;
+    if (segment.bold && segment.italic) {
+      return <strong key={key}><em>{segment.text}</em></strong>;
+    }
+    if (segment.bold) return <strong key={key}>{segment.text}</strong>;
+    if (segment.italic) return <em key={key}>{segment.text}</em>;
+    return <span key={key}>{segment.text}</span>;
+  });
+}
+
+function ServiceDetailContent({ blocks }) {
+  const content = [];
+  let listItems = [];
+
+  const flushList = () => {
+    if (!listItems.length) return;
+    content.push(
+      <ul key={`list-${content.length}`} className="mt-4 space-y-3">
+        {listItems.map((block, index) => (
+          <li key={`item-${index}`} className="flex gap-3 text-sm leading-7 text-slate-600 sm:text-base">
+            <span aria-hidden="true" className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--gold-primary)]" />
+            <span>{renderSegments(block.segments, `item-${index}`)}</span>
+          </li>
+        ))}
+      </ul>
+    );
+    listItems = [];
+  };
+
+  blocks.forEach((block, index) => {
+    if (block.type === 'item') {
+      listItems.push(block);
+      return;
+    }
+
+    flushList();
+    const textKey = `detail-${index}`;
+
+    if (block.type === 'heading') {
+      const Heading = block.level === 3 ? 'h3' : 'h4';
+      content.push(
+        <Heading
+          key={textKey}
+          className={
+            block.level === 3
+              ? 'mt-10 border-t border-slate-200 pt-7 font-[var(--font-heading)] text-xl font-semibold text-[color:var(--navy-dark)] sm:text-2xl'
+              : 'mt-6 font-[var(--font-heading)] text-lg font-semibold text-[color:var(--navy-dark)]'
+          }
+        >
+          {renderSegments(block.segments, textKey)}
+        </Heading>
+      );
+    } else if (block.type === 'tagline') {
+      content.push(
+        <p key={textKey} className="mt-5 font-[var(--font-heading)] text-lg font-semibold italic leading-8 text-[color:var(--navy-dark)]">
+          {renderSegments(block.segments, textKey)}
+        </p>
+      );
+    } else {
+      content.push(
+        <p key={textKey} className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+          {renderSegments(block.segments, textKey)}
+        </p>
+      );
+    }
+  });
+
+  flushList();
+  return <div>{content}</div>;
+}
+
+function ServiceSection({
+  service,
+  index,
+  onExpandedChange,
+  onViewLessVisibility,
+}) {
   const isAlternate = index % 2 === 1;
+  const [isExpanded, setIsExpanded] = useState(false);
+  const summaryRef = useRef(null);
+  const sectionRef = useRef(null);
+  const handleDetailsToggle = useCallback(
+    (event) => {
+      const isOpen = event.currentTarget.open;
+      setIsExpanded(isOpen);
+      onExpandedChange(service.id, isOpen);
+    },
+    [onExpandedChange, service.id]
+  );
+  const handleViewLess = useCallback(() => {
+    setIsExpanded(false);
+    onExpandedChange(service.id, false);
+    scrollToSection(service.id);
+  }, [onExpandedChange, service.id]);
+
+  useEffect(() => {
+    if (!isExpanded || !summaryRef.current || !sectionRef.current) {
+      return undefined;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      onViewLessVisibility(service.id, true, handleViewLess);
+      return undefined;
+    }
+
+    let isSummaryVisible = true;
+    let isSectionVisible = false;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === summaryRef.current) {
+          isSummaryVisible = entry.isIntersecting;
+        } else if (entry.target === sectionRef.current) {
+          isSectionVisible = entry.isIntersecting;
+        }
+      });
+
+      onViewLessVisibility(
+        service.id,
+        !isSummaryVisible && isSectionVisible,
+        handleViewLess
+      );
+    });
+    observer.observe(summaryRef.current);
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [handleViewLess, isExpanded, onViewLessVisibility, service.id]);
 
   return (
     <section
+      ref={sectionRef}
       id={service.id}
       className={`section scroll-mt-24 ${isAlternate ? 'bg-white' : ''}`}
     >
@@ -174,12 +318,76 @@ function ServiceSection({ service, index }) {
             {service.frameworks}
           </p>
         </AnimatedSection>
+
+        <details
+          open={isExpanded}
+          onToggle={handleDetailsToggle}
+          className="group mt-8 border-t border-slate-200 pt-6"
+        >
+          <summary
+            ref={summaryRef}
+            className="flex w-fit cursor-pointer list-none items-center gap-3 rounded-lg border border-[color:var(--navy-medium)] bg-[color:var(--navy-medium)] px-5 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:border-[color:var(--gold-primary)] hover:bg-[color:var(--gold-primary)] hover:text-[color:var(--navy-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--gold-primary)] [&::-webkit-details-marker]:hidden"
+          >
+            <span>View detailed scope of services</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-4 w-4 transition-transform group-open:rotate-180"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6" />
+            </svg>
+          </summary>
+          <div className="mt-8 border-l-2 border-[color:var(--gold-primary)] pl-5 sm:pl-8">
+            <ServiceDetailContent blocks={serviceDetails[service.id]} />
+          </div>
+        </details>
       </div>
     </section>
   );
 }
 
 export default function Services() {
+  const [viewLessControl, setViewLessControl] = useState(null);
+  const activeServiceIdRef = useRef(null);
+
+  const handleExpandedChange = useCallback((serviceId, isOpen) => {
+    if (isOpen) {
+      activeServiceIdRef.current = serviceId;
+      setViewLessControl(null);
+      return;
+    }
+
+    if (activeServiceIdRef.current === serviceId) {
+      activeServiceIdRef.current = null;
+      setViewLessControl(null);
+    }
+  }, []);
+
+  const handleViewLessVisibility = useCallback((serviceId, isVisible, onClick) => {
+    if (activeServiceIdRef.current !== serviceId) {
+      setViewLessControl((currentControl) =>
+        currentControl?.serviceId === serviceId ? null : currentControl
+      );
+      return;
+    }
+
+    if (isVisible) {
+      setViewLessControl({ serviceId, onClick });
+      return;
+    }
+
+    setViewLessControl((currentControl) =>
+      currentControl?.serviceId === serviceId ? null : currentControl
+    );
+  }, []);
+
+  const viewLessService = orderedServices.find(
+    (service) => service.id === viewLessControl?.serviceId
+  );
+
   return (
     <>
       <section className="bg-[color:var(--navy-dark)] text-white">
@@ -203,8 +411,14 @@ export default function Services() {
         </div>
       </section>
 
-      {services.map((service, index) => (
-        <ServiceSection key={service.id} service={service} index={index} />
+      {orderedServices.map((service, index) => (
+        <ServiceSection
+          key={service.id}
+          service={service}
+          index={index}
+          onExpandedChange={handleExpandedChange}
+          onViewLessVisibility={handleViewLessVisibility}
+        />
       ))}
 
       <section className="bg-[color:var(--navy-dark)] text-white">
@@ -222,6 +436,28 @@ export default function Services() {
           </Button>
         </div>
       </section>
+      {viewLessService && (
+        <button
+          type="button"
+          aria-label={`View less and return to ${viewLessService.title}`}
+          onClick={viewLessControl.onClick}
+          className="fixed bottom-6 left-6 z-40 inline-flex h-12 items-center gap-2 rounded-lg bg-[color:var(--navy-medium)] px-5 font-semibold text-white shadow-md transition-all duration-300 hover:bg-[color:var(--gold-primary)] hover:text-[color:var(--navy-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--gold-primary)]"
+        >
+          <svg
+            aria-hidden="true"
+            className="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+          View Less
+        </button>
+      )}
     </>
   );
 }
