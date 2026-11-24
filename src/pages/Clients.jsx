@@ -247,13 +247,18 @@ export default function Clients() {
               <div className="grid items-stretch gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {category.clients.map((client, index) => (
                   <AnimatedSection key={client.name} delay={(index % 8) * 60}>
-                    <div className="flex h-full min-h-[160px] items-center justify-center rounded-xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-200 transition-all duration-300 hover:scale-105 hover:shadow-md hover:ring-[color:var(--gold-primary)]">
+                    <div className="flex h-full min-h-[160px] flex-col items-center justify-center gap-4 rounded-xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-200 transition-all duration-300 hover:scale-105 hover:shadow-md hover:ring-[color:var(--gold-primary)]">
                       {client.logo ? (
-                        <img
-                          src={client.logo.src}
-                          alt=""
-                          className="max-h-24 w-full max-w-full object-contain transition-all duration-300"
-                        />
+                        <>
+                          <img
+                            src={client.logo.src}
+                            alt=""
+                            className="max-h-20 w-full max-w-full object-contain transition-all duration-300"
+                          />
+                          <p className="font-[var(--font-heading)] text-sm font-semibold leading-6 text-[color:var(--navy-dark)]">
+                            {client.name}
+                          </p>
+                        </>
                       ) : (
                         <p className="font-[var(--font-heading)] text-sm font-semibold leading-6 text-[color:var(--navy-dark)] sm:text-base">
                           {client.name}
