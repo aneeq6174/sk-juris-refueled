@@ -230,7 +230,11 @@ export default function Clients() {
         <section className="container-x section">
           <header className="mb-10">
             <h1 className="h1 font-[var(--font-heading)]">Clients</h1>
-            <p className="lead mt-3">We partner with organizations across sectors and geographies.</p>
+            <p className="lead mt-3 text-lg sm:text-xl">
+              Over the years, SKJC has had the privilege of providing legal and
+              corporate advisory services to a diverse range of esteemed
+              organisations, including those listed below.
+            </p>
           </header>
         </section>
       </AnimatedSection>
